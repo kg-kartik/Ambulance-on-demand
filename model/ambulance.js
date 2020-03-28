@@ -28,9 +28,12 @@ const ambulanceSchema = new Schema({
         address : {
             type : String
         },
-        coordinates : [Number]
+        coordinates : {
+            type : [Number]
+        }
     }
 })
+ambulanceSchema.indexes({"location": "2dsphere"});
 
 const ambulanceModel = mongoose.model('ambulanceModel',ambulanceSchema);
 module.exports = ambulanceModel;
