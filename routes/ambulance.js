@@ -45,4 +45,16 @@ router.get("/nearestambulance", (req,res) => {
   })
 })
 
+router.get('/info/:ambulanceid', (req,res) => {
+    const {ambulanceid} = req.params;
+    ambulanceModel.findOne({
+        ambulanceid 
+    }).then((result) => {
+        res.json(result);
+    }).catch((err) => {
+        console.log(err);
+    })
+})
+
+
 module.exports = router;
