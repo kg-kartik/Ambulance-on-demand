@@ -9,7 +9,6 @@ const requestModel = require("././model/request");
 const myMethods = require("./routes/ambulance");
 const method = myMethods.method;
 const otherMethod = myMethods.otherMethod;
-const hello = myMethods.hello;
 
 mongoose.connect(db, {useNewUrlParser : true,
     useUnifiedTopology: true,
@@ -74,6 +73,8 @@ socket.on("request-for-help",(data) => {
     nearestAmbulance.then((result) => {
         for(let i=0;i<result.length;i++)
         {
+            //Emitting the event to the nearby ambulances
+            //@App component
             io.to(result[i].displayName).emit("request",data);
             
         }
@@ -81,6 +82,16 @@ socket.on("request-for-help",(data) => {
         console.log(err);
     })
     });
+
+    //Listening for the event from ambulance 
+    //@App Component
+    socket.on("request-accepted", (data) => {
+        ambulanceDetails = data;
+        console.log(ambulanceDetails);
+        //Emitting the event to the patient
+        //@User Component
+        io.emit("request-sent",ambulanceDetails);
+    })
 })
 
 
