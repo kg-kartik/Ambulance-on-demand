@@ -18,7 +18,7 @@ router.post('/',(req,res) => {
     })
 
     ambulance.save((err,result) => {
-        if(err) {
+         if(err) {
             res.status(404).json(err);
         }
         else {
@@ -27,23 +27,20 @@ router.post('/',(req,res) => {
     })
 })
 
-router.get("/nearestambulance", (req,res) => {
-  ambulanceModel.find({
+const nearestAmbulance = (longitude,latitude,maxDistance) => {
+  return ambulanceModel.find({
       location : {
           $near : {
-                  coordinates : [77.6411549999997,12.9718915]
+                  coordinates : [longitude,latitude]
               },
-              $maxDistance : 2000
-      }
-  }).then((err,result) => {
-      if(err) {
-          res.json(err);
-      }
-      else {
-          res.json(result);
-      }
-  })
-})
+              $maxDistance : maxDistance
+        }
+    }).exec()
+    .catch((err) => {
+        console.log(err);
+    })
+}
+
 
 router.get('/info/:ambulanceid', (req,res) => {
     const {ambulanceid} = req.params;
@@ -56,5 +53,26 @@ router.get('/info/:ambulanceid', (req,res) => {
     })
 })
 
+hello = () => {
+    console.log("hello");
+}
+router.get('/nearestAmbulance',(req,res) => {
+    ambulanceModel.find({
+        location : {
+            $near : {
+                    coordinates : [76,12]
+                },
+                $maxDistance : 206000
+        }
+    }).then((result) => {
+        res.json(result);
+    }).catch((err) => {
+        console.log("nearest ambulance wala error");
+    })
+})
 
-module.exports = router;
+module.exports = {
+    method : router,
+    otherMethod : nearestAmbulance,
+    hello
+}
