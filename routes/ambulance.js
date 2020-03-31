@@ -17,6 +17,7 @@ router.post('/',(req,res) => {
         location
     })
 
+    //Saving Ambulance Data
     ambulance.save((err,result) => {
          if(err) {
             res.status(404).json(err);
@@ -27,6 +28,7 @@ router.post('/',(req,res) => {
     })
 })
 
+//Fetching nearby Ambulancedata depending upon maxDistance specified from user
 const nearestAmbulance = (longitude,latitude,maxDistance) => {
   return ambulanceModel.find({
       location : {
@@ -53,26 +55,7 @@ router.get('/info/:ambulanceid', (req,res) => {
     })
 })
 
-hello = () => {
-    console.log("hello");
-}
-router.get('/nearestAmbulance',(req,res) => {
-    ambulanceModel.find({
-        location : {
-            $near : {
-                    coordinates : [76,12]
-                },
-                $maxDistance : 206000
-        }
-    }).then((result) => {
-        res.json(result);
-    }).catch((err) => {
-        console.log("nearest ambulance wala error");
-    })
-})
-
 module.exports = {
     method : router,
     otherMethod : nearestAmbulance,
-    hello
 }
