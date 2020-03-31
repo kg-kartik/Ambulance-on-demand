@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios"
 import socketIOClient from 'socket.io-client'
 
+const socket =  socketIOClient("http://localhost:5000/")
 class App extends Component {
   constructor(props) {
     super(props)
@@ -11,11 +12,11 @@ class App extends Component {
       patientId : "",
       residence : ""
     };
-
   }
 
+
 componentDidMount() {
-  const socket =  socketIOClient("http://localhost:5000/")
+ 
   axios.get('http://localhost:5000/api/ambulance/info/'+this.props.match.params.ambulanceid)
   .then((response) => {
       this.setState({
@@ -27,14 +28,20 @@ componentDidMount() {
         })
     })
   })
-  
-  
+   
   socket.on("request", (eventData) =>{
     console.log(eventData);
     this.setState({
       patientId : eventData.patientId,
       residence : eventData.location.address
     })
+  })
+}
+
+requestforHelp = () => {
+  socket.emit("request-accepted", {
+    displayName : this.state.displayName,
+    address : this.state.address
   })
 }
 
@@ -46,6 +53,7 @@ componentDidMount() {
         <h1> {address} </h1>
         <h1> {patientId} needs your help</h1>
         <h1> He is here - {residence} </h1>
+        <button onClick={this.requestforHelp}> Help Patient </button>
       </div>
     );
   }
