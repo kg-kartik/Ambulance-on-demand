@@ -14,15 +14,21 @@ class App extends Component {
 
   }
 
-  componentDidMount() {
-    axios.get('http://localhost:5000/api/ambulance/info/'+this.props.match.params.ambulanceid)
-    .then( (response) => {
-        this.setState({
-          displayName : response.data.displayName,
-          address : response.data.location.address
-        })
-  })
+componentDidMount() {
   const socket =  socketIOClient("http://localhost:5000/")
+  axios.get('http://localhost:5000/api/ambulance/info/'+this.props.match.params.ambulanceid)
+  .then((response) => {
+      this.setState({
+        displayName : response.data.displayName,
+        address : response.data.location.address
+      }, () => {
+        socket.emit('join', {
+          displayName : this.state.displayName
+        })
+    })
+  })
+  
+  
   socket.on("request", (eventData) =>{
     console.log(eventData);
     this.setState({
