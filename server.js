@@ -42,12 +42,14 @@ io.on('connection', (socket) => {
 //Listening for help event from patient
 //@User Component
 socket.on("request-for-help",(data) => {
+    console.log(data.addressPatient);
     const requestTime = new Date();
     const requestId = mongoose.Types.ObjectId();
     const location = {
+        addressPatient : data.addressPatient,
         coordinates : [
-            data.location.longitude,
-            data.location.latitude
+            data.location.userLocation.longitude,
+            data.location.userLocation.latitude
         ]
     }
     const patientId = data.patientId;
@@ -69,7 +71,7 @@ socket.on("request-for-help",(data) => {
     })
 
     //Fetching nearest ambulance
-    const nearestAmbulance =  otherMethod(76,12,206000);
+    const nearestAmbulance =  otherMethod(77,12,206000);
     nearestAmbulance.then((result) => {
         for(let i=0;i<result.length;i++)
         {
