@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -35,4 +36,30 @@
   to {
     transform: rotate(360deg);
   }
+}
+.marker {
+  width : 30px;
+  height : 30px;
+  mix-blend-mode: multiply;
+}
+.map {
+  margin : 30px 12vw;
+}
+/* .button {
+  margin-right : 50vw;
+  margin-top : 5vh;
+} */
+.btn-primary {
+  margin-left : 45vw;
+  margin-top : 5vh;
+}
+.btn-success {
+  margin-left : 45vw;
+  margin-top : 5vh;  
+}
+.heading {
+  margin : 5vh 10vw;
+}
+h5 {
+  color : green;
 }
