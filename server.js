@@ -42,7 +42,6 @@ io.on('connection', (socket) => {
 //Listening for help event from patient
 //@User Component
 socket.on("request-for-help",(data) => {
-    console.log(data.addressPatient);
     const requestTime = new Date();
     const requestId = mongoose.Types.ObjectId();
     const location = {
@@ -71,12 +70,15 @@ socket.on("request-for-help",(data) => {
     })
 
     //Fetching nearest ambulance
-    const nearestAmbulance =  otherMethod(77,12,206000);
+    console.log(location.coordinates[0]);
+    console.log(location.coordinates[1]);
+    const nearestAmbulance =  otherMethod(location.coordinates[0],location.coordinates[1],5000);
     nearestAmbulance.then((result) => {
         for(let i=0;i<result.length;i++)
         {
             //Emitting the event to the nearby ambulances
             //@App component
+            console.log(result,"hello");
             io.to(result[i].displayName).emit("request",data);
             
         }
@@ -89,7 +91,6 @@ socket.on("request-for-help",(data) => {
     //@App Component
     socket.on("request-accepted", (data) => {
         ambulanceDetails = data;
-        console.log(ambulanceDetails);
         //Emitting the event to the patient
         //@User Component
         io.emit("request-sent",ambulanceDetails);
