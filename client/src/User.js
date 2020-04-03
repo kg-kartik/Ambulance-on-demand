@@ -4,6 +4,7 @@ import ReactMapGL, { GeolocateControl,NavigationControl, Marker} from 'react-map
 import Geocoder from 'react-map-gl-geocoder'
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./App.css"
+import { Button } from 'reactstrap';
 
 const socket =  socketIOClient("http://localhost:5000")
 
@@ -15,10 +16,10 @@ class User extends Component {
         address : "",
         addressPatient : "",
         viewport: {
-          width : "100vw",
-          height : "100vh",
-          latitude: 28.7041,
-          longitude: 77.1025,
+          width : "75vw",
+          height : "75vh",
+          latitude: 12.9716,
+          longitude: 77.5946,
           zoom : 10
       },
       userLocation : {},
@@ -41,6 +42,21 @@ componentDidMount() {
   })
 }
 
+requestforHelp = () => {
+  var requestDetails = {
+      patientId : "1",
+      patientName : "Random",
+      location: {
+          addressPatient: this.state.addressPatient,
+          userLocation : this.state.userLocation
+      }
+  }
+  //Emitting the request event
+  //@App Component
+  socket.emit("request-for-help",requestDetails);
+}
+
+//Map Integration
 mapRef = React.createRef()
  
   handleViewportChange = (viewport) => {
@@ -58,16 +74,6 @@ mapRef = React.createRef()
   }
 
 
-requestforHelp = () => {
-    var requestDetails = {
-        patientId : "1",
-        location: {
-            addressPatient: this.state.addressPatient,
-            userLocation : this.state.userLocation
-        }
-    }
-    socket.emit("request-for-help",requestDetails);
-}
 handleOnResult = (event) => {
   var patientLocation = {
     latitude : event.result.center[1],
@@ -79,31 +85,42 @@ handleOnResult = (event) => {
   })
 }
 
+
 render() {
   console.log(this.state.ambulanceLocation.latitude)
   const {displayName,address} = this.state;
   return (
     <div>
-      <button onClick={this.requestforHelp}> Request for help</button>
-      <button onClick={this.setUserLocation}> My Location </button>
-      <h1>{displayName} is coming to take you</h1>
-      <h1> He is here {address}</h1> 
-      <ReactMapGL
-        {...this.state.viewport}
-        ref={this.mapRef}
-        onViewportChange = {this.handleViewPortChange}
-        mapStyle = "mapbox://styles/mapbox/navigation-preview-day-v2"
-        mapboxApiAccessToken = "pk.eyJ1Ijoia2cta2FydGlrIiwiYSI6ImNrOGdicTdwZjAwMGUzZW1wZmxpMDdvajcifQ.7FtdVDqPnZh4pCtTtcNf4g">
-        
+      <button type="button" className="btn btn-primary" onClick={this.requestforHelp}>Request For Help</button>
+      <div class="heading">
+      {displayName && address ? (
+        <div>
+           <h3>{displayName} is coming to take you</h3>
+           <h3> It is here - {address}</h3> 
+        </div>
+      ) : (
+        <h3> </h3>
+      )}
+      </div>
+      <div className = "map">
+        <ReactMapGL
+          {...this.state.viewport}
+          ref={this.mapRef}
+          onViewportChange = {viewport => this.setState({
+            viewport
+          })}
+          mapStyle = "mapbox://styles/mapbox/navigation-preview-day-v2"
+          mapboxApiAccessToken = "pk.eyJ1Ijoia2cta2FydGlrIiwiYSI6ImNrOGdicTdwZjAwMGUzZW1wZmxpMDdvajcifQ.7FtdVDqPnZh4pCtTtcNf4g">
+          
 
         <Geocoder
           mapRef={this.mapRef}
           onResult={this.handleOnResult}
           onViewportChange={this.handleGeocoderViewportChange}
           mapboxApiAccessToken="pk.eyJ1Ijoia2cta2FydGlrIiwiYSI6ImNrOGdicTdwZjAwMGUzZW1wZmxpMDdvajcifQ.7FtdVDqPnZh4pCtTtcNf4g"
-          inputValue = "Haridwar"
         />
-           {Object.keys(this.state.ambulanceLocation).length !== 0 ? (
+
+            {Object.keys(this.state.ambulanceLocation).length !== 0 ? (
           <Marker
             latitude={this.state.ambulanceLocation.latitude}
             longitude={this.state.ambulanceLocation.longitude}
@@ -118,8 +135,10 @@ render() {
             <img className="marker" src="logo.png"></img>
           </Marker>
         )}
-      </ReactMapGL>
-    </div>
+
+        </ReactMapGL>
+      </div>
+  </div>
   );
 }
 }

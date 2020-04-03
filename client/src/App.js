@@ -5,6 +5,7 @@ import ReactMapGL, { GeolocateControl,NavigationControl, Marker} from 'react-map
 import Geocoder from 'react-map-gl-geocoder'
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./App.css"
+import { Button } from 'reactstrap';
 
 const socket =  socketIOClient("http://localhost:5000/")
 
@@ -17,10 +18,10 @@ class App extends Component {
       patientId : "",
       residence : "",
       viewport: {
-        width : "100vw",
-        height : "100vh",
-        latitude: 28.7041,
-          longitude: 77.1025,
+        width : "75vw",
+        height : "75vh",
+        latitude: 12.9716,
+        longitude: 77.5946,
         zoom : 10
       },
       userLocation : {},
@@ -91,12 +92,27 @@ render() {
   const { address, displayName,patientId,residence} = this.state;
   return (
     <div>
-      <h1> I am  {displayName} </h1>
-      <h1> {address} </h1>
-      <h1> {patientId} needs your help</h1>
-      <h1> He is here - {residence} </h1>
-      <button onClick={this.requestforHelp}> Help Patient </button>
+      <div className="heading"> {
+      displayName && address ? (
+      <div>
+        <h3>  {displayName} </h3>
+        <h3> It is here - {address} </h3> 
+      </div> )
+        : (<h5> Fetching Ambulance Details.. </h5>
+        )}
 
+      {
+        patientId && residence ? (
+          <div>
+            <h3> {patientId} needs your help</h3>
+            <h3> Location - {residence} </h3>
+          </div>
+        ) : (<h5> Fetching Patient Requests...</h5>)
+      }    
+    </div>
+      <button type="button" className="btn btn-success" onClick={this.requestforHelp}>Help Patient</button>
+
+    <div className = "map">
       <ReactMapGL
         {...this.state.viewport}
         ref={this.mapRef}
@@ -111,7 +127,6 @@ render() {
           onResult={this.handleOnResult}
           onViewportChange={this.handleGeocoderViewportChange}
           mapboxApiAccessToken="pk.eyJ1Ijoia2cta2FydGlrIiwiYSI6ImNrOGdicTdwZjAwMGUzZW1wZmxpMDdvajcifQ.7FtdVDqPnZh4pCtTtcNf4g"
-          inputValue = "Haridwar"
         />
 
         {Object.keys(this.state.userLocation).length !== 0 ? (
@@ -122,11 +137,11 @@ render() {
             <img className="marker" src="patient.png"></img>
           </Marker>
         ) : ( 
-          <div>Empty</div>
+          <div></div>
         )}
       
       </ReactMapGL>
-
+    </div>
     </div>
   );
 }
