@@ -1,0 +1,54 @@
+[
+    {
+        "ambulanceid" : "01",
+        "displayName" : "Ambulance 01",
+        "email" : "ambulance01@gmail.com",
+        "location" : {
+            "type" : "Point",
+            "address" : "Leelawati Hospital,Shivalik Nagar, Haridwar,Uttarakhand",
+            "coordinates" : [
+                78.289490,
+                30.060410
+            ]
+        }
+    },
+    {
+        "ambulanceid" : "02",
+        "displayName" : "Ambulance 02",
+        "email" : "ambulance02@gmail.com",
+        "location" : {
+            "type" : "Point",
+            "address" : "City Hospital,Ranipur More, Haridwar,Uttarakhand",
+            "coordinates" : [
+                78.1315989,
+                29.9334744
+            ]
+        }
+    },
+    {
+        "ambulanceid" : "03",
+        "displayName" : "Ambulance 03",
+        "email" : "ambulance03@gmail.com",
+        "location" : {
+            "type" : "Point",
+            "address" : ", Haridwar,Uttarakhand",
+            "coordinates" : [
+                78.0602701,
+                29.9671832
+            ]
+        }
+    },
+    {
+        "ambulanceid" : "04",
+        "displayName" : "Ambulance 04",
+        "email" : "ambulance04@gmail.com",
+        "location" : {
+            "type" : "Point",
+            "address" : "AIIMS Rishikesh, Rishikesh,Uttarakhand",
+            "coordinates" : [
+                78.2833687,
+                30.0780674
+            ]
+        }
+    }
+]
