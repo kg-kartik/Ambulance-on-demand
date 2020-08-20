@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios"
 import socketIOClient from 'socket.io-client'
-import ReactMapGL, { GeolocateControl,NavigationControl, Marker} from 'react-map-gl'
+import ReactMapGL, { Marker} from 'react-map-gl'
 import Geocoder from 'react-map-gl-geocoder'
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./App.css"
@@ -49,6 +49,8 @@ componentDidMount() {
     })
   })
    
+//Listening for request
+//@User Component
 socket.on("request", (eventData) =>{
   console.log(eventData.location.userLocation.latitude);
   var setUserLocation = {
@@ -65,6 +67,7 @@ socket.on("request", (eventData) =>{
 
 mapRef = React.createRef()
  
+//Map Integration
 handleViewportChange = (viewport) => {
   this.setState({
     viewport: { ...this.state.viewport, ...viewport }
@@ -88,7 +91,7 @@ requestforHelp = () => {
 }
 
 render() {
-  console.log(this.state.userLocation)
+  console.log(process.env.REACT_APP_MAPBOXAPI)
   const { address, displayName,patientId,residence} = this.state;
   return (
     <div>
@@ -126,7 +129,7 @@ render() {
           mapRef={this.mapRef}
           onResult={this.handleOnResult}
           onViewportChange={this.handleGeocoderViewportChange}
-          mapboxApiAccessToken="pk.eyJ1Ijoia2cta2FydGlrIiwiYSI6ImNrOGdicTdwZjAwMGUzZW1wZmxpMDdvajcifQ.7FtdVDqPnZh4pCtTtcNf4g"
+          mapboxApiAccessToken= "pk.eyJ1Ijoia2cta2FydGlrIiwiYSI6ImNrOGdicTdwZjAwMGUzZW1wZmxpMDdvajcifQ.7FtdVDqPnZh4pCtTtcNf4g"
         />
 
         {Object.keys(this.state.userLocation).length !== 0 ? (
@@ -139,7 +142,6 @@ render() {
         ) : ( 
           <div></div>
         )}
-      
       </ReactMapGL>
     </div>
     </div>

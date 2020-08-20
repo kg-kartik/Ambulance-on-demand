@@ -1,54 +1,51 @@
 import React, { Component } from "react";
 import socketIOClient from 'socket.io-client'
-import ReactMapGL, { GeolocateControl,NavigationControl, Marker} from 'react-map-gl'
+import ReactMapGL, {Marker} from 'react-map-gl'
 import Geocoder from 'react-map-gl-geocoder'
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import "./App.css"
-import { Button } from 'reactstrap';
+import "./App.css";
 
 const socket =  socketIOClient("http://localhost:5000")
-
 class User extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        displayName : "",
-        address : "",
-        addressPatient : "",
-        viewport: {
-          width : "75vw",
-          height : "75vh",
-          latitude: 12.9716,
-          longitude: 77.5946,
-          zoom : 10
+      displayName : "",
+      address : "",
+      addressPatient : "",
+      viewport: {
+        width : "75vw",
+        height : "75vh",
+        latitude: 12.9716,
+        longitude: 77.5946,
+        zoom : 10
       },
       userLocation : {},
-      ambulanceLocation : {
-      }
+      ambulanceLocation : {}
     }
-}
+  }
 
-componentDidMount() {
-  socket.on("request-sent",(data) => {
-    var setAmbulanceLocation = {
-      latitude : data.ambulanceLocation.latitude,
-      longitude : data.ambulanceLocation.longitude
-    }
-    this.setState ({
-        displayName : data.displayName,
-        address : data.address,
-        ambulanceLocation : setAmbulanceLocation
+  componentDidMount() {
+    socket.on("request-sent",(data) => {
+      var setAmbulanceLocation = {
+        latitude : data.ambulanceLocation.latitude,
+        longitude : data.ambulanceLocation.longitude
+      }
+      this.setState ({
+          displayName : data.displayName,
+          address : data.address,
+          ambulanceLocation : setAmbulanceLocation
+      })
     })
-  })
-}
+  }
 
 requestforHelp = () => {
   var requestDetails = {
       patientId : "1",
       patientName : "Random",
       location: {
-          addressPatient: this.state.addressPatient,
-          userLocation : this.state.userLocation
+        addressPatient: this.state.addressPatient,
+        userLocation : this.state.userLocation
       }
   }
   //Emitting the request event
@@ -73,7 +70,6 @@ mapRef = React.createRef()
     })
   }
 
-
 handleOnResult = (event) => {
   var patientLocation = {
     latitude : event.result.center[1],
@@ -87,7 +83,6 @@ handleOnResult = (event) => {
 
 
 render() {
-  console.log(this.state.ambulanceLocation.latitude)
   const {displayName,address} = this.state;
   return (
     <div>
@@ -109,8 +104,9 @@ render() {
           onViewportChange = {viewport => this.setState({
             viewport
           })}
+          
           mapStyle = "mapbox://styles/mapbox/navigation-preview-day-v2"
-          mapboxApiAccessToken = "pk.eyJ1Ijoia2cta2FydGlrIiwiYSI6ImNrOGdicTdwZjAwMGUzZW1wZmxpMDdvajcifQ.7FtdVDqPnZh4pCtTtcNf4g">
+          mapboxApiAccessToken ="pk.eyJ1Ijoia2cta2FydGlrIiwiYSI6ImNrOGdicTdwZjAwMGUzZW1wZmxpMDdvajcifQ.7FtdVDqPnZh4pCtTtcNf4g">
           
 
         <Geocoder

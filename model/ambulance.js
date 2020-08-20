@@ -10,11 +10,6 @@ const ambulanceSchema = new Schema({
         type : String,
         required :true
     },
-    phone : {
-        type : Number,
-        unique : true,
-        required : true
-    },
     email : {
         type : String,
         unique : true

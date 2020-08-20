@@ -3,11 +3,7 @@ const router = express.Router();
 const ambulanceModel = require("../model/ambulance");
 
 router.post('/',(req,res) => {
-    const {ambulanceid} = req.body;
-    const {displayName} = req.body;
-    const {phone} = req.body;
-    const {email} = req.body;
-    const {location} = req.body;
+    const {ambulanceid,displayName,phone,email,location} = req.body;
 
     const ambulance = new ambulanceModel({
         ambulanceid,
