@@ -5,9 +5,8 @@ import ReactMapGL, { Marker} from 'react-map-gl'
 import Geocoder from 'react-map-gl-geocoder'
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./App.css"
-import { Button } from 'reactstrap';
 
-const socket =  socketIOClient("http://localhost:5000/")
+const socket =  socketIOClient("http://localhost:4000/")
 
 class App extends Component {
   constructor(props) {
@@ -20,8 +19,8 @@ class App extends Component {
       viewport: {
         width : "75vw",
         height : "75vh",
-        latitude: 12.9716,
-        longitude: 77.5946,
+        latitude: 29.9304758,
+        longitude: 78.062618,
         zoom : 10
       },
       userLocation : {},
@@ -32,7 +31,7 @@ class App extends Component {
 
 componentDidMount() {
  
-  axios.get('http://localhost:5000/api/ambulance/info/'+this.props.match.params.ambulanceid)
+  axios.get('http://localhost:4000/api/ambulance/info/'+this.props.match.params.ambulanceid)
   .then((response) => {
     var setAmbulanceLocation = {
       latitude : response.data.location.coordinates[1],
@@ -49,8 +48,10 @@ componentDidMount() {
     })
   })
    
+  console.log(this.state.displayName,"name");
 //Listening for request
 //@User Component
+
 socket.on("request", (eventData) =>{
   console.log(eventData.location.userLocation.latitude);
   var setUserLocation = {

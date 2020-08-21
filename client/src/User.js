@@ -5,7 +5,7 @@ import Geocoder from 'react-map-gl-geocoder'
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./App.css";
 
-const socket =  socketIOClient("http://localhost:5000")
+const socket =  socketIOClient("http://localhost:4000")
 class User extends Component {
   constructor(props) {
     super(props)
@@ -16,8 +16,8 @@ class User extends Component {
       viewport: {
         width : "75vw",
         height : "75vh",
-        latitude: 12.9716,
-        longitude: 77.5946,
+        latitude: 29.9304758,
+        longitude: 78.062618,
         zoom : 10
       },
       userLocation : {},

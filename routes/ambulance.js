@@ -25,13 +25,16 @@ router.post('/',(req,res) => {
 })
 
 //Fetching nearby Ambulancedata depending upon maxDistance specified from user
-const nearestAmbulance = (longitude,latitude,maxDistance) => {
-  return ambulanceModel.find({
-      location : {
+const nearestAmbulance =  (longitude,latitude,maxDistance) => {
+    return ambulanceModel.find({
+        location : {
           $near : {
-                  coordinates : [longitude,latitude]
-              },
-              $maxDistance : maxDistance
+                $geometry : {
+                    type : "Point",
+                    coordinates : [longitude,latitude]
+                }, 
+                $maxDistance : maxDistance        
+            }
         }
     }).exec()
     .catch((err) => {

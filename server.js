@@ -20,6 +20,7 @@ mongoose.connect(process.env.MONGO_URI, {useNewUrlParser : true,
 .catch((err) => {
     console.log(err);
 })
+
 app.use(cors());
 
 const PORT = process.env.PORT || 4000;
@@ -77,6 +78,7 @@ socket.on("request-for-help",(data) => {
     console.log(location.coordinates[0]);
     console.log(location.coordinates[1]);
     const nearestAmbulance =  otherMethod(location.coordinates[0],location.coordinates[1],5000);
+    console.log(nearestAmbulance,"nearest");
     nearestAmbulance.then((result) => {
         for(let i=0;i<result.length;i++)
         {

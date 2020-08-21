@@ -31,7 +31,7 @@
         "email" : "ambulance03@gmail.com",
         "location" : {
             "type" : "Point",
-            "address" : ", Haridwar,Uttarakhand",
+            "address" : "Metro Hospital, Haridwar,Uttarakhand",
             "coordinates" : [
                 78.0602701,
                 29.9671832
