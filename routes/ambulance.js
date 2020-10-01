@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ambulanceModel = require("../model/ambulance");
+const isAuth = require('../user/authentication/isAuth')
 
 router.post('/',(req,res) => {
     const {ambulanceid,displayName,phone,email,location} = req.body;
@@ -43,7 +44,7 @@ const nearestAmbulance =  (longitude,latitude,maxDistance) => {
 }
 
 
-router.get('/info/:ambulanceid', (req,res) => {
+router.get('/info/:ambulanceid',  (req,res) => {
     const {ambulanceid} = req.params;
     ambulanceModel.findOne({
         ambulanceid 

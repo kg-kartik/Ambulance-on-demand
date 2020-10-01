@@ -8,9 +8,26 @@ const myMethods = require("./routes/ambulance");
 const method = myMethods.method;
 const otherMethod = myMethods.otherMethod;
 const dotenv = require("dotenv");
+const signupRoutes = require('./user/routes/singup_route');
+const loginRoutes = require('./user/routes/login_route')
 
 dotenv.config({
     path : ".env"
+})
+app.use(bodyParser.json());
+app.use(signupRoutes);
+app.use(loginRoutes)
+app.use((error, _, res, next) => {
+    if(error){
+        console.log(error)
+        const message = error.message;
+        const status = error.status_code;
+
+        res.status(status).json({
+            message : message
+        })
+    }
+    next()
 })
 
 mongoose.connect(process.env.MONGO_URI, {useNewUrlParser : true,
