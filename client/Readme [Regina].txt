@@ -12,6 +12,6 @@ These are the changes that I did:
 - Add a little bit of Javascript using React Hooks only to switch pages when button clicked.
 - Add Forgot Password (Login.js), Terms of Use and Privacy Policy (SignUp.js) placeholder.
 
-If there's any problem, please contact me via my email -> agatharejinas@gmail.com
+If there's any problem and would like to work with me, please contact me via my email -> agatharejinas@gmail.com
 
-I hope you like the UI Improvement project. Cheers!
+I hope you like the UI Improvement project by me. Cheers!
