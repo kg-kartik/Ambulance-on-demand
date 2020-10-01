@@ -44,16 +44,12 @@ const SignUp = () => {
                                             <label>Phone Number</label>
                                             <input type="phone" class="form-control" placeholder = 'Phone Number'/>
                                         </div>
-                                        <div className = 'form-row'>
-                                            <div className = 'form-group col-lg-6'>
-                                                <label>Password</label>
-                                                <input type="password" class="form-control" placeholder = 'Password'/>
-                                            </div>
-                                            <div className = 'form-group col-lg-6'>
-                                                <label>Confirm Password</label>
-                                                <input type="password" class="form-control" placeholder = 'Confirm Password'/>
-                                            </div>
+                                        
+                                        <div className = 'form-group'>
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" placeholder = 'Password'/>
                                         </div>
+                                       
                                         <div className = 'form-group form-check'>
                                             <input type="checkbox" className="form-check-input" />
                                             <label className="form-check-label" >Agree to the <a href = '/' className = 'custom-text primary'>Terms of Use</a> and <a href= '/' className = 'custom-text primary'>Privacy Policy</a></label>
