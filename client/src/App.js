@@ -138,7 +138,7 @@ render() {
             latitude={this.state.userLocation.latitude}
             longitude={this.state.userLocation.longitude}
           >
-            <img className="marker" src="patient.png"></img>
+            <img className="marker" src="patient.png" alt = 'marker'></img>
           </Marker>
         ) : ( 
           <div></div>
