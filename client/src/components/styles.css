@@ -1,0 +1,77 @@
+:root {
+    --main-bg-color:#00ba944d;
+    --main-light-color: rgb(0, 186, 148);
+    --main-dark-color: #0A2E36;
+    --white: white;
+}
+
+.login-container, .sign-up-container {
+    background-color: var(--white);
+    height: 100vh;
+    padding: 56px 64px;
+}
+
+.sign-up-container {
+    padding: 40px 64px;
+}
+
+.image-container {
+    background-color: var(--main-bg-color);
+    height: 100vh;
+    padding: 56px;
+    text-align: center;
+}
+
+.banner-title {
+    color: var(--main-light-color);
+    font-weight: 700;
+}
+
+.banner-desc {
+    color: var(--main-dark-color);
+    opacity: .7;
+    font-weight: 500;
+    max-width: 75%;
+    margin: auto;
+}
+
+/* GLOBAL CSS */
+
+.custom-btn {
+    padding: .5rem 1rem;
+    font-weight: 600;
+}
+
+.custom-btn.primary {
+    background-color: var(--main-light-color);
+    color: var(--white);
+}
+
+.custom-btn.secondary, .input-group.secondary {
+    background-color: var(--main-bg-color);
+    color: var(--main-light-color);
+}
+
+.input-group.secondary {
+    border: 1px solid var(--main-bg-color);
+}
+
+.custom-text.primary {
+    color: var(--main-light-color);
+}
+
+.custom-text.bold {
+    font-weight: 700;
+}
+
+.custom-text.semi-bold {
+    font-weight: 600;
+}
+
+.custom-text.medium {
+    font-weight: 500;
+}
+
+.custom-text.secondary {
+    color: var(--main-dark-color);
+}
