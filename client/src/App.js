@@ -6,7 +6,7 @@ import Geocoder from 'react-map-gl-geocoder'
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./App.css"
 
-const socket =  socketIOClient("http://localhost:4000/")
+const socket =  socketIOClient("http://localhost:5000/")
 
 class App extends Component {
   constructor(props) {
@@ -31,8 +31,10 @@ class App extends Component {
 
 componentDidMount() {
  
-  axios.get('http://localhost:4000/api/ambulance/info/'+this.props.match.params.ambulanceid)
+  axios.get('http://localhost:5000/api/ambulance/info/'+this.props.match.params.ambulanceid)
   .then((response) => {
+    console.log(this.props.match.params.ambulanceid,"ambulanceid");
+    console.log(response,"Response");
     var setAmbulanceLocation = {
       latitude : response.data.location.coordinates[1],
       longitude : response.data.location.coordinates[0] 

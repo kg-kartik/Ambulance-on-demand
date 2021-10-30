@@ -14,9 +14,9 @@ const loginRoutes = require('./user/routes/login_route')
 dotenv.config({
     path : ".env"
 })
+
 app.use(bodyParser.json());
-app.use(signupRoutes);
-app.use(loginRoutes)
+
 app.use((error, _, res, next) => {
     if(error){
         console.log(error)
@@ -33,14 +33,14 @@ app.use((error, _, res, next) => {
 mongoose.connect(process.env.MONGO_URI, {useNewUrlParser : true,
     useUnifiedTopology: true,
     useCreateIndex : true})
-.then(() => console.log('Database connected'))
+.then(() => console.log('Database connected'))  
 .catch((err) => {
     console.log(err);
 })
 
 app.use(cors());
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 var server = app.listen(PORT, () => {
     console.log(`Server started on ${PORT}`);
@@ -126,10 +126,10 @@ app.use(express.urlencoded({
     extended : false
 }));
 
-app.use(bodyParser.json());
-
 //Initializing Routes
 app.use('/api/ambulance',method);
-
+//For authenticating users
+app.use(signupRoutes);
+app.use(loginRoutes)
 
 

@@ -5,7 +5,7 @@ import Geocoder from 'react-map-gl-geocoder'
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./App.css";
 
-const socket =  socketIOClient("http://localhost:4000")
+const socket =  socketIOClient("http://localhost:5000")
 class User extends Component {
   constructor(props) {
     super(props)
@@ -24,7 +24,7 @@ class User extends Component {
       ambulanceLocation : {}
     }
   }
-
+  
   componentDidMount() {
     socket.on("request-sent",(data) => {
       var setAmbulanceLocation = {
@@ -81,9 +81,10 @@ handleOnResult = (event) => {
   })
 }
 
-
 render() {
   const {displayName,address} = this.state;
+console.log("lol");
+ 
   return (
     <div>
       <button type="button" className="btn btn-primary" onClick={this.requestforHelp}>Request For Help</button>

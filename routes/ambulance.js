@@ -46,8 +46,9 @@ const nearestAmbulance =  (longitude,latitude,maxDistance) => {
 
 router.get('/info/:ambulanceid',  (req,res) => {
     const {ambulanceid} = req.params;
+    console.log(ambulanceid,"id from server");
     ambulanceModel.findOne({
-        ambulanceid 
+        ambulanceid
     }).then((result) => {
         res.json(result);
     }).catch((err) => {
